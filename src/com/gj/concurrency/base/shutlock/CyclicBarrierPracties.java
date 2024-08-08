@@ -44,11 +44,25 @@ public class CyclicBarrierPracties {
     }
 
     public static void main(String[] args) {
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(3);
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(20, new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("20人满了，发车");
+            }
+        });
 
-        new Thread(new Runner(500, "中国", cyclicBarrier)).start();
-        new Thread(new Runner(1500, "美国", cyclicBarrier)).start();
-        new Thread(new Runner(2500, "德国", cyclicBarrier)).start();
+        for (int i = 0; i < 100; i++) {
+            final int currentIdx = i;
+            new Thread(() -> {
+                try {
+                    cyclicBarrier.await();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                } catch (BrokenBarrierException e) {
+                    throw new RuntimeException(e);
+                }
+            }).start();
+        }
 
     }
 }

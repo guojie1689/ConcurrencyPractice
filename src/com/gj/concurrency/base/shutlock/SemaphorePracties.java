@@ -1,7 +1,5 @@
 package com.gj.concurrency.base.shutlock;
 
-import com.sun.jmx.remote.internal.ArrayQueue;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -89,6 +87,7 @@ public class SemaphorePracties {
     }
 
     public static void main(String[] args) {
+
         Dispatcher dispatcher = new Dispatcher();
 
         for (int i = 0; i < 50; i++) {
